@@ -200,8 +200,10 @@ var CommonHelper = /** @class */ (function () {
             if (options.callbackError && typeof options.callbackError === "function") {
                 options.callbackError(jqXHR, textStatus, errorThrown);
             }
-            // tslint:disable-next-line:no-console
-            console.log(textStatus, errorThrown);
+            else {
+                // tslint:disable-next-line:no-console
+                console.log(textStatus, errorThrown);
+            }
         });
     };
     /**
@@ -320,7 +322,7 @@ function install$2(Vue, options) {
         var valid = ajaxOptionsValidate(options);
         ajax({
             contentType: "application/json",
-            data: JSON.stringify(this._getValue(valid.path)),
+            data: JSON.stringify(this.$path(valid.path)),
             dataType: "json",
             method: "POST",
             url: valid.url,
@@ -337,7 +339,7 @@ function install$2(Vue, options) {
         var valid = ajaxOptionsValidate(options);
         ajax({
             contentType: "application/json",
-            data: JSON.stringify(this._getValue(valid.path)),
+            data: JSON.stringify(this.$path(valid.path)),
             dataType: "json",
             method: "PUT",
             url: valid.url,

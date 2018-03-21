@@ -20,7 +20,7 @@
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
     typeof define === 'function' && define.amd ? define(['exports'], factory) :
-    (factory((global.sico = global.sico || {}, global.sico['vue-helpers'] = {})));
+    (factory((global.sico = {})));
 }(this, (function (exports) { 'use strict';
 
     (function (TransactionCode) {
@@ -205,8 +205,10 @@
                 if (options.callbackError && typeof options.callbackError === "function") {
                     options.callbackError(jqXHR, textStatus, errorThrown);
                 }
-                // tslint:disable-next-line:no-console
-                console.log(textStatus, errorThrown);
+                else {
+                    // tslint:disable-next-line:no-console
+                    console.log(textStatus, errorThrown);
+                }
             });
         };
         /**
@@ -325,7 +327,7 @@
             var valid = ajaxOptionsValidate(options);
             ajax({
                 contentType: "application/json",
-                data: JSON.stringify(this._getValue(valid.path)),
+                data: JSON.stringify(this.$path(valid.path)),
                 dataType: "json",
                 method: "POST",
                 url: valid.url,
@@ -342,7 +344,7 @@
             var valid = ajaxOptionsValidate(options);
             ajax({
                 contentType: "application/json",
-                data: JSON.stringify(this._getValue(valid.path)),
+                data: JSON.stringify(this.$path(valid.path)),
                 dataType: "json",
                 method: "PUT",
                 url: valid.url,

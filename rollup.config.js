@@ -10,7 +10,7 @@ export default [
 	{
 		input: 'src/main.js',
 		output: {
-			name: 'sico.vue-helpers',
+			name: 'sico',
 			file: pkg.browser,
 			format: 'umd',
 			banner: banner,
