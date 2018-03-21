@@ -12,7 +12,7 @@
     "main": "dist/sico.vue-helpers.cjs.js",
     "module": "dist/sico.vue-helpers.es.js",
     "browser": "dist/sico.vue-helpers.umd.js",
-    "typings": "types/index.d.ts",
+    "typings": "types/main.d.ts",
     "files": [
         "docs",
         "src",

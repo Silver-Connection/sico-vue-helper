@@ -14,7 +14,7 @@ export default function install(Vue: typeof _Vue, options?: any): void {
         }
 
         if (typeof path === "string" || path instanceof String) {
-            list = this._getValue(path.toString());
+            list = this.$path(path.toString());
         }
 
         if (list === undefined) {

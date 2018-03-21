@@ -283,7 +283,7 @@ function install$1(Vue, options) {
             list = path;
         }
         if (typeof path === "string" || path instanceof String) {
-            list = this._getValue(path.toString());
+            list = this.$path(path.toString());
         }
         if (list === undefined) {
             return undefined;
