@@ -70,10 +70,10 @@ export class CommonHelper {
 
                 if (options.callbackError && typeof options.callbackError === "function") {
                     options.callbackError(jqXHR, textStatus, errorThrown);
+                } else {
+                    // tslint:disable-next-line:no-console
+                    console.log(textStatus, errorThrown);
                 }
-
-                // tslint:disable-next-line:no-console
-                console.log(textStatus, errorThrown);
             });
     }
 

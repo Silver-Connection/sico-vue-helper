@@ -36,7 +36,7 @@ export default function install(Vue: typeof _Vue, options?: any): void {
         ajax(
             {
                 contentType: "application/json",
-                data: JSON.stringify(this._getValue(valid.path)),
+                data: JSON.stringify(this.$path(valid.path)),
                 dataType: "json",
                 method: "POST",
                 url: valid.url,
@@ -58,7 +58,7 @@ export default function install(Vue: typeof _Vue, options?: any): void {
         ajax(
             {
                 contentType: "application/json",
-                data: JSON.stringify(this._getValue(valid.path)),
+                data: JSON.stringify(this.$path(valid.path)),
                 dataType: "json",
                 method: "PUT",
                 url: valid.url,

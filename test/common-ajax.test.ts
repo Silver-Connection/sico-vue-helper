@@ -4,15 +4,15 @@ import sinon from "sinon";
 import Vue from "vue";
 import { Common, Transaction } from "../src/main";
 
-function okResponse(model) {
+function responseSuccess(model) {
     const d = $.Deferred();
     d.resolve(model);
     return d.promise();
 }
 
-function errorResponse() {
+function responseError() {
     const d = $.Deferred();
-    d.reject({}, {}, "could not complete");
+    d.reject({}, {}, "Connection timed out!");
     return d.promise();
 }
 
@@ -29,7 +29,12 @@ const respondGet = new Transaction<IUser>({
 
 describe("CommonHelper - ajax", () => {
     it("ajax: simple request", () => {
-        ajaxStub.returns(okResponse(respondGet));
+        ajaxStub.returns(responseSuccess(respondGet));
+        const callback = (responde: Transaction<IUser>) => {
+            expect(responde.Data.Id).toBe(1);
+            expect(responde.Data.Name).toBe("User-1");
+        };
+        const callbackSpy = sinon.spy(callback);
 
         Common.ajax({
             contentType: "application/json",
@@ -39,13 +44,32 @@ describe("CommonHelper - ajax", () => {
         },
             {
                 setNotify: false,
-                callback: (responde: Transaction<IUser>) => {
-                    expect(responde.Data.Id).toBe(1);
-                    expect(responde.Data.Name).toBe("User-1");
-                    // console.log(responde);
-                }
+                callback: callbackSpy
             });
 
+        expect(callbackSpy.calledOnce).toBeTruthy();
+        ajaxStub.restore();
+    });
+
+    it("ajax: failed request", () => {
+        ajaxStub.returns(responseError);
+        const callback = (jqXHR: JQuery.jqXHR, textStatus: JQuery.Ajax.TextStatus, errorThrown: string) => {
+            expect(textStatus).toBe("error");
+        };
+        const callbackSpy = sinon.spy(callback);
+
+        Common.ajax({
+            contentType: "application/json",
+            dataType: "json",
+            method: "GET",
+            url: "/get",
+        },
+            {
+                setNotify: false,
+                callbackError: callbackSpy
+            });
+
+        expect(callbackSpy.calledOnce).toBeTruthy();
         ajaxStub.restore();
     });
 });

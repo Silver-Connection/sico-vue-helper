@@ -1,6 +1,18 @@
 import Vue from "vue";
 import { VueHelper } from "../src/vue/lib";
 import { Transaction } from "../src/transaction/lib";
+import { CommonHelperFindCallback, CommonHelperAjaxOptions } from "../src/common/lib";
+
+declare module "vue/types/vue" {
+    interface Vue {
+        $path(path?: string): any;
+        $find(path: string | any[], callback: CommonHelperFindCallback): any;
+        $ajaxGet(options: CommonHelperAjaxOptions | string): void;
+        $ajaxPost(options: CommonHelperAjaxOptions | string): void;
+        $ajaxPut(options: CommonHelperAjaxOptions | string): void;
+        $ajaxDelete(options: CommonHelperAjaxOptions | string): void;
+    }
+}
 
 // Init
 document.body.innerHTML = '<div id="a"></div><div id="b"></div>';
@@ -17,9 +29,9 @@ export const modelRaw = {
         Id: 1
     },
     Nest: {
-        Name: "A",
+        Name: "Level-1",
         Child: {
-            Name: "A",
+            Name: "Level-2",
             Id: 1
         }
     },

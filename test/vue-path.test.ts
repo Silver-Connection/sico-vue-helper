@@ -14,7 +14,7 @@ describe("vue-path", () => {
     it("$path: match nested object", () => {
         const test = vueModel.$path("Nest.Child");
 
-        expect(test.Name).toBe("A");
+        expect(test.Name).toBe("Level-2");
         expect(test.Id).toBe(1);
     });
 
@@ -24,5 +24,37 @@ describe("vue-path", () => {
         expect(test.length).toBe(5);
         expect(test[0].Name).toBe("A");
         expect(test[0].Id).toBe(1);
+    });
+
+    it("$path: match root", () => {
+        let test = vueModel.$path("");
+        expect(test.Id).toBe(10);
+        expect(test.Name).toBe("Test");
+        expect(test.Score).toBe(14);
+
+        test = vueModel.$path(undefined);
+        expect(test.Id).toBe(10);
+        expect(test.Name).toBe("Test");
+        expect(test.Score).toBe(14);
+
+        test = vueModel.$path("undefined");
+        expect(test.Id).toBe(10);
+        expect(test.Name).toBe("Test");
+        expect(test.Score).toBe(14);
+
+        test = vueModel.$path();
+        expect(test.Id).toBe(10);
+        expect(test.Name).toBe("Test");
+        expect(test.Score).toBe(14);
+    });
+
+    it("$path: match not found", () => {
+        const test = vueModel.$path("NotFound");
+        expect(test).toBe(undefined);
+    });
+
+    it("$path: match nested not found", () => {
+        const test = vueModel.$path("Nest.Children");
+        expect(test).toBe(undefined);
     });
 });
