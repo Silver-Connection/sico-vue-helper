@@ -21,7 +21,7 @@
     ],
     "repository": {
         "type": "git",
-        "url": "git+https://https://github.com/Silver-Connection/sico-vue-helpers.git"
+        "url": "git+https://github.com/Silver-Connection/sico-vue-helpers.git"
     },
     "bugs": {
         "url": "https://github.com/Silver-Connection/sico-vue-helpers/issues"

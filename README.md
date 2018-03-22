@@ -42,16 +42,16 @@ Vue.use(sico.VuePlugins);
 
 > **Documentation**
 >
-> [Read](docs/transaction.md)
+> [Read](https://github.com/Silver-Connection/sico-vue-helpers/blob/master/docs/transaction.md)
 
 ## Common
 
 > **Documentation**
 >
-> [Read](docs/common.md)
+> [Read](https://github.com/Silver-Connection/sico-vue-helpers/blob/master/docs/common.md)
 
 ## Vue-Plugins
 
 > **Documentation**
 >
-> [Read](docs/vue-plugins.md)
+> [Read](https://github.com/Silver-Connection/sico-vue-helpers/blob/master/docs/vue-plugins.md)
