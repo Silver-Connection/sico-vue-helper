@@ -1,6 +1,6 @@
 /**
  * @summary     Vue.js Helper
- * @description Transaction Model, Vue ajax helpers, Common helper
+ * @description Transaction Model & Vue Ajax helpers
  * @version     1.0.1
  * @file        dist/sico.vue-helpers.umd.js
  * @dependencie Vue.js, jQuery

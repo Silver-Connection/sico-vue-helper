@@ -52,7 +52,7 @@
         "vue-server-renderer": "^2.5.16"
     },
     "scripts": {
-        "clean": "rm src/*.js src/*/*.js src/*.js.map src/*/*.js.map",
+        "clean": "rm -rf src/*.js src/*/*.js src/*.js.map src/*/*.js.map types/* dist/*",
         "test": "tsc && jest",
         "build": "tsc && jest && rollup -c"
     },
