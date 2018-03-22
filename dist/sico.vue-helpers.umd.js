@@ -1,8 +1,8 @@
 /**
  * @summary     Vue.js Helper
  * @description Transaction Model, Vue ajax helpers, Common helper
- * @version     3.0
- * @file        sico.vue-helpers.js
+ * @version     1.0.1
+ * @file        dist/sico.vue-helpers.umd.js
  * @dependencie Vue.js, jQuery
  * @author      Silver Connection OHG
  * @contact     Kiarash G. <kiarash@si-co.net>
@@ -263,19 +263,35 @@
                     }
                     else {
                         var t = paths[i];
-                        if (t.indexOf("[") > -1) {
-                            var index = t.substr(t.indexOf("[") + 1).replace("]", "");
-                            var base = t.substr(0, t.indexOf("["));
-                            list = list[base][index];
+                        var arrayConvert = pathArrayConvert(paths[i]);
+                        if (arrayConvert !== undefined) {
+                            list = list[arrayConvert.base][arrayConvert.index];
                         }
                         else {
-                            list = list[paths[i]];
+                            list = list[t];
                         }
                     }
                 }
             }
+            else {
+                var arrayConvert = pathArrayConvert(path);
+                if (arrayConvert !== undefined) {
+                    list = this.$data[arrayConvert.base][arrayConvert.index];
+                }
+            }
             return list;
         };
+    }
+    function pathArrayConvert(path) {
+        var startPos = path.indexOf("[");
+        if (startPos > -1) {
+            var index = path.substr(startPos + 1).replace("]", "");
+            return {
+                base: path.substr(0, startPos),
+                index: path.substr(startPos + 1).replace("]", ""),
+            };
+        }
+        return undefined;
     }
 
     function install$1(Vue, options) {
@@ -398,13 +414,43 @@
                         vue.$set(vue, "Data", response.Data);
                     }
                     else {
-                        var cmd = "$this.$data." + options.path + " = response.Data;";
-                        // tslint:disable-next-line:no-eval
-                        eval(cmd);
+                        var pointer = pathSplitLastLevel(options.path);
+                        if (pointer !== undefined) {
+                            // console.log(pointer);
+                            var partial = vue.$path(pointer.base);
+                            vue.$set(partial, pointer.name, response.Data);
+                        }
+                        // const cmd = "vue.$data." + options.path + " = response.Data;";
+                        // // tslint:disable-next-line:no-eval
+                        // eval(cmd);
                     }
                 }
             }
         });
+    }
+    function pathSplitLastLevel(path) {
+        if (path.indexOf(".") > -1) {
+            var paths = path.split(".");
+            var base = "";
+            var name_1 = "";
+            for (var i = 0; i < paths.length; i++) {
+                if (i === paths.length - 1) {
+                    var arrayConvert = pathArrayConvert(paths[i]);
+                    if (arrayConvert !== undefined) {
+                        base += "." + arrayConvert.base;
+                        name_1 = arrayConvert.index;
+                    }
+                    else {
+                        name_1 = paths[i];
+                    }
+                }
+                else {
+                    base += "." + paths[i];
+                }
+            }
+            return { base: base.substr(1), name: name_1 };
+        }
+        return undefined;
     }
 
     var VueHelper = /** @class */ (function () {

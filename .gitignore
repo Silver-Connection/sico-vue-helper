@@ -114,6 +114,8 @@ tscommand*tmp*
 # Compiles
 .tmp
 .tmp/*
+tmp
+tmp/*
 src/**/*.js
 src/**/*.css
 src/**/*.map

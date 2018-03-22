@@ -1,8 +1,8 @@
 /**
  * @summary     Vue.js Helper
- * @description Transaction Model, Vue ajax helpers, Common helper
- * @version     3.0
- * @file        sico.vue-helpers.js
+ * @description Transaction Model & Vue Ajax helpers
+ * @version     %VERSION%
+ * @file        %FILE%
  * @dependencie Vue.js, jQuery
  * @author      Silver Connection OHG
  * @contact     Kiarash G. <kiarash@si-co.net>
