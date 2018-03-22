@@ -1,4 +1,4 @@
-import Vue from "vue";
+import Vue from "vue/dist/vue.common";
 import { VueHelper } from "../src/vue/lib";
 import { Transaction } from "../src/transaction/lib";
 import { CommonHelperFindCallback, CommonHelperAjaxOptions } from "../src/common/lib";
@@ -48,12 +48,13 @@ export const modelFunction = () => modelRaw;
 
 export const modelTransaction = new Transaction(modelRaw);
 
+// use mount for better type support..wired
 export const vueModel = new Vue({
-    // el: "#a",
+    el: "#a",
     data: modelFunction
-});
+}).$mount();
 
 export const vueTransaction = new Vue({
-    // el: "#b",
+    el: "#b",
     data: modelTransaction.$toVue()
-});
+}).$mount();

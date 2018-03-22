@@ -1,5 +1,6 @@
 import _Vue from "vue";
 import { CommonHelper, CommonHelperAjaxOptions, CommonHelperFindCallback } from "../common/lib";
+import { pathArrayConvert } from "./p_path";
 
 export default function install(Vue: typeof _Vue, options?: any): void {
     /**
@@ -125,11 +126,42 @@ function ajax(settings: JQueryAjaxSettings, options: CommonHelperAjaxOptions, vu
                 if (options.path == undefined || options.path === "" || options.path === "undefined") {
                     vue.$set(vue, "Data", response.Data);
                 } else {
-                    const cmd = "$this.$data." + options.path + " = response.Data;";
-                    // tslint:disable-next-line:no-eval
-                    eval(cmd);
+                    const pointer = pathSplitLastLevel(options.path);
+                    if (pointer !== undefined) {
+                        // console.log(pointer);
+                        const partial = vue.$path(pointer.base);
+                        vue.$set(partial, pointer.name, response.Data);
+                    }
+                    // const cmd = "vue.$data." + options.path + " = response.Data;";
+                    // // tslint:disable-next-line:no-eval
+                    // eval(cmd);
                 }
             }
         }
     });
+}
+
+function pathSplitLastLevel(path: string) {
+    if (path.indexOf(".") > -1) {
+        const paths = path.split(".");
+        let base = "";
+        let name = "";
+        for (let i = 0; i < paths.length; i++) {
+            if (i === paths.length - 1) {
+                const arrayConvert = pathArrayConvert(paths[i]);
+                if (arrayConvert !== undefined) {
+                    base += "." + arrayConvert.base;
+                    name = arrayConvert.index;
+                } else {
+                    name = paths[i];
+                }
+            } else {
+                base += "." + paths[i];
+            }
+        }
+
+        return { base: base.substr(1), name };
+    }
+
+    return undefined;
 }

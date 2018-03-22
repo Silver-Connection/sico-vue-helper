@@ -26,6 +26,13 @@ describe("vue-path", () => {
         expect(test[0].Id).toBe(1);
     });
 
+    it("$path: match array element", () => {
+        const test = vueModel.$path("List[0]");
+
+        expect(test.Name).toBe("A");
+        expect(test.Id).toBe(1);
+    });
+
     it("$path: match root", () => {
         let test = vueModel.$path("");
         expect(test.Id).toBe(10);

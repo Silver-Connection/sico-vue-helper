@@ -3,18 +3,7 @@ import jsdom from "jsdom";
 import sinon from "sinon";
 import Vue from "vue";
 import { Common, Transaction } from "../src/main";
-
-function responseSuccess(model) {
-    const d = $.Deferred();
-    d.resolve(model);
-    return d.promise();
-}
-
-function responseError() {
-    const d = $.Deferred();
-    d.reject({}, {}, "Connection timed out!");
-    return d.promise();
-}
+import { responseSuccess, responseError } from "./ajax-setup";
 
 interface IUser {
     Id: number;

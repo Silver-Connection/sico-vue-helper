@@ -18,17 +18,34 @@ export default function install(Vue: typeof _Vue, options?: any): void {
                     list = this.$data[paths[i]];
                 } else {
                     const t = paths[i];
-                    if (t.indexOf("[") > -1) {
-                        const index = t.substr(t.indexOf("[") + 1).replace("]", "");
-                        const base = t.substr(0, t.indexOf("["));
-                        list = list[base][index];
+                    const arrayConvert = pathArrayConvert(paths[i]);
+                    if (arrayConvert !== undefined) {
+                        list = list[arrayConvert.base][arrayConvert.index];
                     } else {
-                        list = list[paths[i]];
+                        list = list[t];
                     }
                 }
+            }
+        } else {
+            const arrayConvert = pathArrayConvert(path);
+            if (arrayConvert !== undefined) {
+                list = this.$data[arrayConvert.base][arrayConvert.index];
             }
         }
 
         return list;
     };
+}
+
+export function pathArrayConvert(path: string) {
+    const startPos = path.indexOf("[");
+    if (startPos > -1) {
+        const index = path.substr(startPos + 1).replace("]", "");
+        return {
+            base: path.substr(0, startPos),
+            index: path.substr(startPos + 1).replace("]", ""),
+        };
+    }
+
+    return undefined;
 }
