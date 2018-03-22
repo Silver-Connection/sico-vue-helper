@@ -1,5 +1,5 @@
 {
-    "name": "sico-veu-helpers",
+    "name": "sico-vue-helpers",
     "version": "1.0.1",
     "description": "Transaction and Vue.js helper. Add Transaction Model and AJAX helper",
     "author": "Silver Connection",
