@@ -1,4 +1,4 @@
-sico-vue-helper
+sico-vue-helpers
 ===
 
 <!-- TOC -->

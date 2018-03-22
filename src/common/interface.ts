@@ -15,7 +15,7 @@ export interface CommonHelperAjaxOptions {
     url?: string;
 
     /**
-     * Overwrite tarnsaction action message
+     * Overwrite tarnsaction action string
      * @default null
      * @type string
      */
@@ -43,7 +43,7 @@ export interface CommonHelperAjaxOptions {
     callback?: CommonHelperAjaxCallback;
 
     /**
-     * Callback function success
+     * Callback function fail
      * @default null
      * @type string
      */
@@ -57,7 +57,7 @@ export interface CommonHelperAjaxOptions {
     setData?: boolean;
 
     /**
-     * Display transaction
+     * Display transaction on success
      * @default null
      * @type string
      */
